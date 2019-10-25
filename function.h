@@ -10,7 +10,7 @@ public:
 	void setFunction(double (*fn)(double)) {
 		this->fn = fn;
 	}
-	virtual double operator ()(double x) {
+	virtual double invoke(double x) {
 		return fn(x);
 	}
 };
@@ -25,16 +25,37 @@ public:
 	void setFunction(double (*fn_dir)(Vector)) {
 		this->fn_dir = fn_dir;
 	}
-	void setStart(Vector start){
+	void setStart(Vector start) {
 		this->start = start;
 	}
-	void setDir(Vector dir){
+	void setDir(Vector dir) {
 		this->dir = dir;
 	}
-	double operator()(Vector x) {
+	double invoke(Vector x) {
 		return fn_dir(x);
 	}
-	double operator()(double t) {
-		return fn_dir(start + t * dir);
+	double invoke(double t) override {
+		return fn_dir(this->point(t));
+	}
+	Vector point(double t) {
+		return start + t * dir;
+	}
+	Vector gradient(Vector point){
+		int n = point.getSize();
+		Vector grad(n);
+		Vector x_p(n), x_n(n);
+		double h = 1e-5;
+		for (int i = 0; i < point.getSize(); i++) {
+			x_p = x_n = point;
+			x_p(i) += h;
+			x_n(i) -= h;
+			grad(i) = (invoke(x_p) - invoke(x_n)) / (2 * h);
+		}
+		return grad;
+	}
+	Vector gradientNorm(Vector point) {
+		Vector grad = this->gradient(point);
+		grad /= grad.length();
+		return grad;
 	}
 };

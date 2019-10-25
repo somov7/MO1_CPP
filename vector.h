@@ -10,8 +10,8 @@ using namespace std;
 class Vector
 {
 private:
-	double* values;
-	int size;
+	double* values = nullptr;
+	int size = 0;
 public:
 	Vector() : size(0), values(nullptr) {}
 	Vector(int size){	
@@ -19,6 +19,9 @@ public:
 			throw out_of_range("Can't create negative-sized vector");
 		this->size = size;
 		this->values = new double[size];
+		for (int i = 0; i < size; i++) {
+			values[i] = 0;
+		}
 	}
 	Vector(int size, double *values) {
 		if (size < 0)
@@ -47,6 +50,7 @@ public:
 	Vector operator - (const Vector& other) const;
 	Vector operator * (double factor) const;
 	Vector operator / (double factor) const;
+	Vector operator - () const;
 
 	bool operator < (const Vector& other) const;
 	bool operator <= (const Vector& other) const;
@@ -76,4 +80,4 @@ public:
 
 Vector operator * (double factor, const Vector& vector);
 Vector operator / (double factor, const Vector& vector);
-
+Vector abs(const Vector &vector);

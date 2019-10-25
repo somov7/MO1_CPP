@@ -5,7 +5,7 @@ Vector Vector::operator = (const Vector& other) {
 	this->size = other.size;
 	values = new double[this->size];
 	for (int i = 0; i < this->size; i++)
-		this->values[i] = values[i];
+		this->values[i] = other.values[i];
 	return *this;
 }
 
@@ -58,6 +58,11 @@ Vector Vector::operator * (double factor) const {
 Vector Vector::operator / (double factor) const {
 	Vector res = *this;
 	res /= factor;
+	return res;
+}
+
+Vector Vector::operator - () const {
+	Vector res = -1 * (*this);
 	return res;
 }
 
@@ -163,4 +168,13 @@ Vector operator * (double factor, const Vector& vector) {
 
 Vector operator / (double factor, const Vector& vector) {
 	return vector / factor;
+}
+
+Vector abs(const Vector& vector) {
+	Vector res = vector;
+	for (int i = 0; i < res.getSize(); i++) {
+		if (res(i) < 0)
+			res(i) = -res(i);
+	}
+	return res;
 }
