@@ -10,8 +10,6 @@ double dichotomy(Function& fn, double l, double r, double eps, int& iter, int& f
 	iter = 0;
 	func_cnt = 0;
 	while (r - l > eps) {
-		iter++;
-		func_cnt += 2;
 		double a = (r + l) / 2 - delta;
 		double b = (r + l) / 2 + delta;
 		double fa = fn(a);
@@ -22,12 +20,14 @@ double dichotomy(Function& fn, double l, double r, double eps, int& iter, int& f
 		if (fa <= fb) {
 			r = b;
 		}
+		iter++;
+		func_cnt += 2;
 	}
 	return (l + r) / 2;
 }
 
 double goldenSection(Function& fn, double l, double r, double eps, int& iter, int& func_cnt) {
-	iter = 1;
+	iter = 0;
 	func_cnt = 2;
 	double phi = (1 + sqrt(5.0)) * 0.5;
 	double a = r - (r - l) / phi;
@@ -35,8 +35,6 @@ double goldenSection(Function& fn, double l, double r, double eps, int& iter, in
 	double fa = fn(a);
 	double fb = fn(b);
 	while (r - l > eps) {
-		iter++;
-		func_cnt++;
 		if (fa > fb) {
 			l = a;
 			a = b;
@@ -51,6 +49,8 @@ double goldenSection(Function& fn, double l, double r, double eps, int& iter, in
 			fb = fa;
 			fa = fn(a);
 		}
+		iter++;
+		func_cnt++;
 	}
 	return (l + r) / 2;
 }
@@ -61,7 +61,7 @@ double fibonacci(Function& fn, double l, double r, double eps, int& iter, int& f
 		fib.push_back(fib[fib.size() - 1] + fib[fib.size() - 2]);
 	}
 	reverse(fib.begin(), fib.end());
-	iter = 1, func_cnt = 2;
+	iter = 0, func_cnt = 2;
 	double a = l + (double(fib[2]) / fib[0]) * (r - l);
 	double b = l + (double(fib[1]) / fib[0]) * (r - l);
 	double fa = fn(a);
