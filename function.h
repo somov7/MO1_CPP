@@ -40,13 +40,13 @@ public:
 	Vector point(double t) {
 		return start + t * dir;
 	}
-	Vector gradient(Vector point){
-		int n = point.getSize();
+	Vector gradient(Vector x){
+		int n = x.getSize();
 		Vector grad(n);
 		Vector x_p(n), x_n(n);
-		double h = 1e-14;
+		double h = 1e-12;
 		for (int i = 0; i < n; i++) {
-			x_p = x_n = point;
+			x_p = x_n = x;
 			x_p(i) += h;
 			x_n(i) -= h;
 			grad(i) = ((*this)(x_p) - (*this)(x_n)) / (2 * h);

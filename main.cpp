@@ -34,10 +34,9 @@ int main() {
 	double eps_f = 1e-8;
 
 	cin >> start;
-	eps_x = Vector(start.getSize());
-	for (int i = 0; i < eps_x.getSize(); i++) {
-		eps_x(i) = 1e-4;
-	}
+	double eps_x_values[2] = { 1e-6, 1e-6 };
+	eps_x = Vector(start.getSize(), eps_x_values);
+
 	vecAns = steepestDescent(vecFunc, start, eps_x, eps_f, iter);
 	cout << "Min: " << vecAns << "; iterations: " << iter << endl;
 	return 0;
