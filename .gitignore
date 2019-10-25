@@ -81,3 +81,12 @@ x64/Release/MO1.tlog/MO1.write.1u.tlog
 x64/Release/MO1.vcxproj.FileListAbsolute.txt
 x64/Release/vc142.pdb
 x64/Release/vector.obj
+*.obj
+*.exe
+*.log
+*.tlog
+*.ilk
+x64/Debug/MO1.pdb
+x64/Debug/MO1.vcxproj.FileListAbsolute.txt
+x64/Debug/vc142.idb
+x64/Debug/vc142.pdb

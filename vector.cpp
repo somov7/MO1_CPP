@@ -1,6 +1,6 @@
 #include "vector.h"
 
-Vector Vector::operator = (const Vector& other) {
+Vector& Vector::operator = (const Vector& other) {
 	delete[] values;
 	this->size = other.size;
 	values = new double[this->size];
@@ -37,13 +37,13 @@ Vector Vector::operator /= (double factor) {
 	return *this;
 }
 
-Vector Vector::operator + (const Vector& other) const {
+Vector Vector::operator + (const Vector other) const {
 	Vector res = *this;
 	res += other;
 	return res;
 }
 
-Vector Vector::operator - (const Vector& other) const {
+Vector Vector::operator - (const Vector other) const {
 	Vector res = *this;
 	res -= other;
 	return res;
@@ -59,10 +59,11 @@ Vector Vector::operator / (double factor) const {
 	Vector res = *this;
 	res /= factor;
 	return res;
+
 }
 
 Vector Vector::operator - () const {
-	Vector res = -1 * (*this);
+	Vector res = (*this) * (-1);
 	return res;
 }
 
@@ -111,7 +112,7 @@ bool Vector::operator < (const Vector& other) const {
 	if (this->size != other.size)
 		throw out_of_range("Vectors have different sizes");
 	for (int i = 0; i < this->size; i++) {
-		if (other(i) >= (*this)(i))
+		if ((*this)(i) >= other(i))
 			return false;
 	}
 	return true;
@@ -120,7 +121,7 @@ bool Vector::operator <= (const Vector& other) const {
 	if (this->size != other.size)
 		throw out_of_range("Vectors have different sizes");
 	for (int i = 0; i < this->size; i++) {
-		if (other(i) > (*this)(i))
+		if ((*this)(i) > other(i))
 			return false;
 	}
 	return true;
@@ -129,7 +130,7 @@ bool Vector::operator > (const Vector& other) const {
 	if (this->size != other.size)
 		throw out_of_range("Vectors have different sizes");
 	for (int i = 0; i < this->size; i++) {
-		if (other(i) <= (*this)(i))
+		if ((*this)(i) <= other(i))
 			return false;
 	}
 	return true;
@@ -138,7 +139,7 @@ bool Vector::operator >= (const Vector& other) const {
 	if (this->size != other.size)
 		throw out_of_range("Vectors have different sizes");
 	for (int i = 0; i < this->size; i++) {
-		if (other(i) < (*this)(i))
+		if ((*this)(i) < other(i))
 			return false;
 	}
 	return true;
@@ -147,7 +148,7 @@ bool Vector::operator == (const Vector& other) const {
 	if (this->size != other.size)
 		throw out_of_range("Vectors have different sizes");
 	for (int i = 0; i < this->size; i++) {
-		if (other(i) != (*this)(i))
+		if ((*this)(i) != other(i))
 			return false;
 	}
 	return true;
@@ -156,7 +157,7 @@ bool Vector::operator != (const Vector& other) const {
 	if (this->size != other.size)
 		throw out_of_range("Vectors have different sizes");
 	for (int i = 0; i < this->size; i++) {
-		if (other(i) == (*this)(i))
+		if ((*this)(i) == other(i))
 			return false;
 	}
 	return true;

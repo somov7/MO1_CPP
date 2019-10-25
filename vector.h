@@ -10,8 +10,8 @@ using namespace std;
 class Vector
 {
 private:
-	double* values = nullptr;
-	int size = 0;
+	double* values;
+	int size;
 public:
 	Vector() : size(0), values(nullptr) {}
 	Vector(int size){	
@@ -33,21 +33,20 @@ public:
 	}
 	Vector(const Vector &other) {
 		this->size = other.size;	
-		delete[] this->values;
 		this->values = new double[this->size];
 		for (int i = 0; i < other.size; i++)
 			this->values[i] = other.values[i];
 	}
 
-	Vector operator = (const Vector& other);
+	Vector& operator = (const Vector& other);
 
 	Vector operator += (const Vector& other);
 	Vector operator -= (const Vector& other);
 	Vector operator *= (double factor);
 	Vector operator /= (double factor);
 
-	Vector operator + (const Vector& other) const;
-	Vector operator - (const Vector& other) const;
+	Vector operator + (const Vector other) const;
+	Vector operator - (const Vector other) const;
 	Vector operator * (double factor) const;
 	Vector operator / (double factor) const;
 	Vector operator - () const;
