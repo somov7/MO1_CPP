@@ -1,9 +1,12 @@
 ﻿#include <iostream>
 #include <cmath>
+#include <fstream>
 #include "vector.h"
 #include "minsearch.h"
 #include "function.h"
 #include "2dmin.h"
+
+using namespace std;
 
 double fn(double x) {
 	return x * x + 2 * x - 4;
@@ -15,11 +18,13 @@ double fnVec(Vector x) {
 
 int main() {
 	
+	ifstream fin("input.txt");
+
 	double l, r, eps, ans;
 	Function func(fn);
 	int iter, func_cnt;
-	/*
-	cin >> l >> r >> eps;
+
+	fin >> l >> r >> eps;
 	ans = dichotomy(func, l, r, eps, iter, func_cnt);
 	cout << "Dichotomy: " << ans << " " << "; iterations: " << iter << "; function calculations: " << func_cnt << endl;
 	ans = goldenSection(func, l, r, eps, iter, func_cnt);
@@ -27,15 +32,21 @@ int main() {
 	ans = fibonacci(func, l, r, eps, iter, func_cnt);
 	cout << "Fibonacci: " << ans << " " << "; iterations: " << iter << "; function calculations: " << func_cnt << endl;
 	cout << "Line minimum: " << minSearch(func, 1e-3) << endl;
-	*/
-
+	
+	
+	int size;
 	VectorFunction vecFunc(fnVec);
 	Vector start, eps_x, vecAns;
-	double eps_f = 1e-8;
+	double eps_f;
 
-	cin >> start;
-	double eps_x_values[2] = { 1e-6, 1e-6 };
-	eps_x = Vector(start.getSize(), eps_x_values);
+	fin >> size;
+	start = Vector(size);
+	eps_x = Vector(size);
+	for (int i = 0; i < size; i++)
+		fin >> start(i);
+	for (int i = 0; i < size; i++)
+		fin >> eps_x(i);
+	fin >> eps_f;
 
 	vecAns = steepestDescent(vecFunc, start, eps_x, eps_f, iter);
 	cout << "Min: " << vecAns << "; iterations: " << iter << endl;
