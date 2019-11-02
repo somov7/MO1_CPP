@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// Тут я вижу бинарный поиск с счётчиком итераций
 double dichotomy(Function& fn, double l, double r, double eps, int& iter, int& func_cnt) {
 	double delta = (eps / 2) * 0.99;
 	iter = 0;
@@ -26,6 +27,7 @@ double dichotomy(Function& fn, double l, double r, double eps, int& iter, int& f
 	return (l + r) / 2;
 }
 
+//Метод золотого сечения, что-то типо бин поиска
 double goldenSection(Function& fn, double l, double r, double eps, int& iter, int& func_cnt) {
 	iter = 0;
 	func_cnt = 2;
@@ -55,6 +57,7 @@ double goldenSection(Function& fn, double l, double r, double eps, int& iter, in
 	return (l + r) / 2;
 }
 
+//По методу фиббоначи
 double fibonacci(Function& fn, double l, double r, double eps, int& iter, int& func_cnt) {
 	vector<long long> fib = { 1, 1, 2 };
 	while (r - l > fib[fib.size() - 1] * eps) {

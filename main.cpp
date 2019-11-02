@@ -33,7 +33,7 @@ int main() {
 	cout << "Fibonacci: " << ans << " " << "; iterations: " << iter << "; function calculations: " << func_cnt << endl;
 	cout << "Line minimum: " << minSearch(func, 1e-3) << endl;
 	
-	
+	/*
 	int size;
 	VectorFunction vecFunc(fnVec);
 	Vector start, eps_x, vecAns;
@@ -50,5 +50,6 @@ int main() {
 
 	vecAns = steepestDescent(vecFunc, start, eps_x, eps_f, iter);
 	cout << "Min: " << vecAns << "; iterations: " << iter << endl;
+	*/
 	return 0;
 }
