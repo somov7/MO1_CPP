@@ -21,8 +21,7 @@ double fnVec(Vector x) {
 }
 
 void output() {
-	cout << fixed;
-	cout.precision(9);
+	fout << fixed << setprecision(6);
 	fout << "Iterations: " << iter << endl;
 	fout << "Function evaluations: " << func_cnt << endl;
 	for (int i = 0; i < iter; i++)
