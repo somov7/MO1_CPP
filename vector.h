@@ -80,3 +80,4 @@ public:
 Vector operator * (double factor, const Vector& vector);
 Vector operator / (double factor, const Vector& vector);
 Vector abs(const Vector &vector);
+Vector next(const Vector& cur, const Vector& min, const Vector& max, const Vector& step);

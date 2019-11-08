@@ -17,6 +17,7 @@ public:
 
 class VectorFunction : public Function {
 	double (*fn_dir)(Vector);
+	Vector (*grad)(Vector);
 	Vector dir, start;
 public:
 	VectorFunction() : fn_dir(nullptr) {}
@@ -24,6 +25,9 @@ public:
 	VectorFunction(double (*fn_dir)(Vector), Vector start, Vector dir) : fn_dir(fn_dir), start(start), dir(dir) {}
 	void setFunction(double (*fn_dir)(Vector)) {
 		this->fn_dir = fn_dir;
+	}
+	void setGradient(Vector (*grad)(Vector)) {
+		this->grad = grad;
 	}
 	void setStart(Vector start) {
 		this->start = start;
@@ -40,7 +44,7 @@ public:
 	Vector point(double t) {
 		return start + t * dir;
 	}
-	Vector gradient(Vector x){
+	Vector gradient(Vector x){/*
 		int n = x.getSize();
 		Vector grad(n);
 		Vector x_p(n), x_n(n);
@@ -51,11 +55,11 @@ public:
 			x_n(i) -= h;
 			grad(i) = ((*this)(x_p) - (*this)(x_n)) / (2 * h);
 		}
-		return grad;
+		return grad;*/
+		return this->grad(x);
 	}
 	Vector gradientNorm(Vector point) {
 		Vector grad = gradient(point);
-		grad /= grad.length();
 		return grad;
 	}
 };

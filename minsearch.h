@@ -11,4 +11,4 @@ double minSearch(Function& fn, double eps, double delta = 1e-3);
 //Вот эта штука считает итерации и всё такое
 
 extern vector<double> lborder, rborder, lpnt, rpnt, lfn, rfn;
-extern double iter, func_cnt;
+extern int iter, func_cnt;

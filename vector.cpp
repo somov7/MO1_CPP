@@ -70,7 +70,7 @@ Vector Vector::operator - () const {
 double& Vector::operator()(int index) {
 	if (index < 0 || index >= this->size)
 		throw out_of_range("Index is out of range");
-	return values[index];
+ 	return values[index];
 }
 
 double Vector::operator()(int index) const {
@@ -178,4 +178,21 @@ Vector abs(const Vector& vector) {
 			res(i) = -res(i);
 	}
 	return res;
+}
+
+Vector next(const Vector& cur, const Vector& min, const Vector& max, const Vector& step) {
+	int sz = cur.getSize();
+	Vector ans(cur);
+	bool maxReached;
+	for (int i = sz - 1; i >= 0; i--) {
+		maxReached = false;
+		ans(i) += step(i);
+		if (ans(i) <= max(i))
+			break;
+		ans(i) = min(i);
+		maxReached = true;
+	}
+	if (maxReached)
+		return max + step;
+	return ans;
 }

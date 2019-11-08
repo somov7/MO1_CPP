@@ -7,7 +7,7 @@
 using namespace std;
 
 vector<double> lborder, rborder, lpnt, rpnt, lfn, rfn;
-double iter, func_cnt;
+int iter, func_cnt;
 
 // Тут я вижу бинарный поиск с счётчиком итераций
 double dichotomy(Function& fn, double l, double r, double eps) {
@@ -54,7 +54,7 @@ double goldenSection(Function& fn, double l, double r, double eps) {
 	rpnt.push_back(b);
 	lfn.push_back(fa);
 	rfn.push_back(fb);
-	func_cnt = 2;
+	func_cnt += 2;
 	
 	while (r - l > eps) {
 		
@@ -105,7 +105,7 @@ double fibonacci(Function& fn, double l, double r, double eps) {
 	rpnt.push_back(b);
 	lfn.push_back(fa);
 	rfn.push_back(fb);
-	func_cnt = 2;
+	func_cnt += 2;
 
 	for (size_t i = 1; i < fib.size() - 2; i++) {
 		if (fa > fb) {
@@ -139,26 +139,33 @@ double fibonacci(Function& fn, double l, double r, double eps) {
 }
 
 void minSegment(Function& fn, double s, double &l, double &r, double delta) {
-	double fs = fn(s);
+	double fx = fn(s);
 	double f_next = fn(s + delta);
 	double f_prev = fn(s - delta);
+
+	func_cnt += 3;
+
 	double h;
-	if (f_prev > fs) {
-		if (f_next > fs){
+	if (f_prev > fx) {
+		if (f_next > fx){
 			l = s - delta;
 			r = s + delta;
 			return;
 		}
 		h = delta;
+		fx = f_next;
 	}
 	else {
 		h = -delta;
+		fx = f_prev;
 	}
 	double x_prev = s;
 	double x = s + h;
 	double x_next = s + 2 * h;
-	double fx = fn(x);
 	f_next = fn(x_next);
+
+	func_cnt++;
+
 	while (fx > f_next) {
 		h *= 2;
 		x_prev = x;
@@ -166,6 +173,9 @@ void minSegment(Function& fn, double s, double &l, double &r, double delta) {
 		x_next = x + h;
 		fx = f_next;
 		f_next = fn(x_next);
+
+		func_cnt++;
+
 	}
 	l = x_prev;
 	r = x_next;
@@ -176,5 +186,5 @@ void minSegment(Function& fn, double s, double &l, double &r, double delta) {
 double minSearch(Function& fn, double eps, double delta) {
 	double l, r;
 	minSegment(fn, 0.0, l, r, delta);
-	return dichotomy(fn, l, r, eps);
+	return goldenSection(fn, l, r, eps);
 }
