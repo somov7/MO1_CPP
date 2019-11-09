@@ -52,9 +52,14 @@ void output2() {
 	vecFunc.setGradient(grad);
 	fout << defaultfloat;
 	for (Vector cur = vec_min; cur <= vec_max; cur = next(cur, vec_min, vec_max, vec_step)){
-			
-		iter2 = 0;
-		func_cnt = 0;
+
+		iter = func_cnt = 0;
+		lborder.clear();
+		rborder.clear();
+		lpnt.clear();
+		rpnt.clear();
+		lfn.clear();
+		rfn.clear();
 
 		cout << defaultfloat << "(";
 		for (int i = 0; i < cur.getSize() - 1; i++) {
@@ -74,6 +79,8 @@ void output2() {
 		}
 		fout << ans(sz - 1) << ")\t";
 		fout << vecFunc(ans) << '\t' << iter2 << '\t' << func_cnt << '\n';
+
+
 
 	}
 }
